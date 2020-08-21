@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -20,7 +22,7 @@
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="index.html">
         <img
           src="https://static.koalarong.com/img/favicon.svg"
           width="30"
@@ -45,24 +47,21 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="index.html"
+            <a class="nav-link" href="#"
               >主页 <span class="sr-only">(current)</span></a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">基本信息</a>
+            <a class="nav-link" href="ad">管理员管理</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">单元学习</a>
+            <a class="nav-link" href="#">学生管理</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">课程资源</a>
+            <a class="nav-link" href="#">教师管理</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">课程活动</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">课程讨论</a>
+            <a class="nav-link" href="#">教务人员管理</a>
           </li>
         </ul>
         <form class="form-inline">
@@ -99,7 +98,7 @@
           >
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
-                <form action="">
+                <form action="login.jsp" method="post">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">
                       用户登录
@@ -115,33 +114,20 @@
                   </div>
                   <div class="modal-body">
                     <div class="form-group">
-                      <label>账号</label>
+                      <label>账号<small class="form-text text-muted">请选择身份</small></label>
                       <div class="input-group form-group mb-3">
                         <div class="input-group-append">
-                          <button
-                            class="btn btn-outline-secondary dropdown-toggle"
-                            type="button"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                          >
-                            选择身份
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="login-student.html"
-                              >学生</a
-                            >
-                            <a class="dropdown-item" href="login-teacher.html"
-                              >教师</a
-                            >
-                            <a class="dropdown-item" href="login-admin.html"
-                              >管理员</a
-                            >
-                          </div>
+                          <select class="custom-select" name="identity">
+                            <option selected value="admin">管理员</option>
+                            <option value="registrar">教务人员</option>
+                            <option value="teacher">教师</option>
+                            <option value="student">学生</option>
+                          </select>
                         </div>
                         <input
                           type="text"
                           class="form-control"
+                          name="id"
                           aria-label="Text input with dropdown button"
                         />
                       </div>
@@ -150,6 +136,7 @@
                         <input
                           type="password"
                           class="form-control"
+                          name="password"
                           aria-describedby="basic-addon1"
                         />
                       </div>
@@ -163,9 +150,12 @@
                     >
                       关闭
                     </button>
-                    <button type="submit" class="btn btn-primary">
-                      登录
-                    </button>
+                    <input
+                      type="submit"
+                      class="btn btn-primary"
+                      value="登录"
+                      name="login"
+                    />
                   </div>
                 </form>
               </div>
@@ -176,93 +166,56 @@
     </nav>
     <!- 导航栏 ->
 
-    <div class="container" style="margin-top: 1rem;">
-      <div class="row border-bottom">
-        <h1>课程名称</h1>
+    <div id="homecarousel" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#homecarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#homecarousel" data-slide-to="1"></li>
+        <li data-target="#homecarousel" data-slide-to="2"></li>
+      </ol>
+      <div class="carousel-inner" style="height: 450px;">
+        <div class="carousel-item active">
+          <img
+            src="https://static.koalarong.com/img/70110257_p0.jpg"
+            class="d-block img-fluid"
+            alt="..."
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            src="https://static.koalarong.com/img/74724305_p0.jpg"
+            class="d-block img-fluid"
+            alt="..."
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            src="https://static.koalarong.com/img/78830672_p0.jpg"
+            class="d-block img-fluid"
+            alt="..."
+          />
+        </div>
       </div>
-      <div class="row" style="margin-top: 1rem;">
-        <div class="col-3">
-          <div class="border p-3 mb-2 rounded-lg">
-            <h2>教师信息</h2>
-            <table class="table table-sm">
-              <tbody>
-                <tr>
-                  <th scope="row">教师姓名</th>
-                  <td>ABC院</td>
-                </tr>
-                <tr>
-                  <th scope="row">所属学院</th>
-                  <td>ABC院</td>
-                </tr>
-                <tr>
-                  <th scope="row">教师简介</th>
-                  <td>A1234556</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="border p-3 mb-5 rounded-lg">
-            <h2>课程信息</h2>
-            <table class="table table-sm">
-              <tbody>
-                <tr>
-                  <th scope="row">开课学院</th>
-                  <td>ABC院</td>
-                </tr>
-                <tr>
-                  <th scope="row">课程编号</th>
-                  <td>A1234556</td>
-                </tr>
-                <tr>
-                  <th scope="row">任课教师</th>
-                  <td>Jim KK</td>
-                </tr>
-                <tr>
-                  <th scope="row">课程类型</th>
-                  <td>专业选修</td>
-                </tr>
-                <tr>
-                  <th scope="row">学分</th>
-                  <td>5</td>
-                </tr>
-                <tr>
-                  <th scope="row">考查方式</th>
-                  <td>考核</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <!- 左侧边栏 ->
-        <div class="col-6">
-          <div class="border-bottom">
-            <h2>课程介绍</h2>
-          </div>
-        </div>
-        <div class="col-3">
-          <div class="border p-3 mb-2 rounded-lg">
-            <h2>课程通知</h2>
-            <table class="table table-sm">
-              <tbody>
-                <tr>
-                  <th scope="row">教师姓名</th>
-                  <td>ABC院</td>
-                </tr>
-                <tr>
-                  <th scope="row">所属学院</th>
-                  <td>ABC院</td>
-                </tr>
-                <tr>
-                  <th scope="row">教师简介</th>
-                  <td>A1234556</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <!- 左侧边栏 ->
-      </div>
+      <a
+        class="carousel-control-prev"
+        href="#homecarousel"
+        role="button"
+        data-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a
+        class="carousel-control-next"
+        href="#homecarousel"
+        role="button"
+        data-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
+    
+      <h1>欢迎,管理员<%=session.getAttribute("adminname") %></h1>
 
     <footer class="footer text-center" style="height: 74px;">
       <p class="copyright">Copyright © 2020 KoalaRong, All rights reserved</p>

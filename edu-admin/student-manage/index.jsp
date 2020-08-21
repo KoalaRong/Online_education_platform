@@ -1,18 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://static.koalarong.com/css/edustyle.css" />
     <link
       rel="icon"
       type="image/png"
       href="https://static.koalarong.com/img/favicon.svg"
     />
-    <title>在线教育平台</title>
+    <title>在线教育平台-教师</title>
   </head>
-
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="index.html">
@@ -45,44 +52,18 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">学习</a>
+            <a class="nav-link" href="admin-manage/index.jsp">教师管理</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">活动</a>
+            <a class="nav-link" href="student-manage/index.jsp">教师管理</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">播客</a>
+            <a class="nav-link" href="teacher-manage/index.jsp">教师管理</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">精品课</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">专业</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">资源中心</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">学习社区</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+            <a class="nav-link" href="registrar-manage/index.jsp"
+              >教务人员管理</a
             >
-              Dropdown
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
           </li>
         </ul>
         <form class="form-inline">
@@ -100,14 +81,14 @@
           <span style="color: azure;">&nbsp;|&nbsp;</span>
         </div>
         <div class="my-2 my-sm-0">
-          <button
-            type="button"
-            class="btn btn-outline-info"
-            data-toggle="modal"
-            data-target="#exampleModalCenter"
-          >
-            登录
-          </button>
+        <a href="../../logout.jsp">
+        <button
+          type="button"
+          class="btn btn-outline-info"
+        >
+          注销
+        </button>
+        </a>
 
           <div
             class="modal fade"
@@ -119,7 +100,7 @@
           >
             <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
-                <form action="">
+                <form action="login.jsp" method="post">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalCenterTitle">
                       用户登录
@@ -149,19 +130,20 @@
                           </button>
                           <div class="dropdown-menu">
                             <a class="dropdown-item" href="login-student.html"
-                              >学生</a
+                              >教师</a
                             >
                             <a class="dropdown-item" href="login-teacher.html"
                               >教师</a
                             >
                             <a class="dropdown-item" href="login-admin.html"
-                              >管理员</a
+                              >教师</a
                             >
                           </div>
                         </div>
                         <input
                           type="text"
                           class="form-control"
+                          name="id"
                           aria-label="Text input with dropdown button"
                         />
                       </div>
@@ -170,6 +152,7 @@
                         <input
                           type="password"
                           class="form-control"
+                          name="password"
                           aria-describedby="basic-addon1"
                         />
                       </div>
@@ -183,9 +166,12 @@
                     >
                       关闭
                     </button>
-                    <button type="submit" class="btn btn-primary">
-                      登录
-                    </button>
+                    <input
+                      type="submit"
+                      class="btn btn-primary"
+                      value="登录"
+                      name="login"
+                    />
                   </div>
                 </form>
               </div>
@@ -196,63 +182,50 @@
     </nav>
     <!- 导航栏 ->
 
-    <div id="homecarousel" class="carousel slide" data-ride="carousel">
-      <ol class="carousel-indicators">
-        <li data-target="#homecarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#homecarousel" data-slide-to="1"></li>
-        <li data-target="#homecarousel" data-slide-to="2"></li>
-      </ol>
-      <div class="carousel-inner" style="height: 450px;">
-        <div class="carousel-item active">
-          <img
-            src="https://static.koalarong.com/img/70110257_p0.jpg"
-            class="d-block img-fluid"
-            alt="..."
-          />
-        </div>
-        <div class="carousel-item">
-          <img
-            src="https://static.koalarong.com/img/74724305_p0.jpg"
-            class="d-block img-fluid"
-            alt="..."
-          />
-        </div>
-        <div class="carousel-item">
-          <img
-            src="https://static.koalarong.com/img/78830672_p0.jpg"
-            class="d-block img-fluid"
-            alt="..."
-          />
-        </div>
-      </div>
-      <a
-        class="carousel-control-prev"
-        href="#homecarousel"
-        role="button"
-        data-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a
-        class="carousel-control-next"
-        href="#homecarousel"
-        role="button"
-        data-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>
-    <!- 导航栏 ->
+    <form action="studentview.jsp" method="POST">
+      输入要查询的教师ID:<input type="text" name="id" />
+      <input type="submit" value="查询" />
+    </form>
+
+    <form action="studentmod.jsp" method="POST">
+      输入要修改的教师ID:<input type="text" name="id" />
+      <input type="submit" value="修改" />
+    </form>
+
+    <form action="studentdel.jsp" method="POST">
+      输入要删除的教师ID:<input type="text" name="id" />
+      <input type="submit" value="删除" />
+    </form>
 
     <footer class="footer text-center" style="height: 74px;">
       <p class="copyright">Copyright © 2020 KoalaRong, All rights reserved</p>
     </footer>
+
+    <form action="studentadd.jsp" method="POST">
+      输入要增加的教师ID:<input type="text" name="id" />
+      输入要增加的教师密码:<input type="password" name="password" />
+      输入要增加的教师姓名:<input type="text" name="name" />
+      输入要增加的教师性别:<input type="text" name="sex" />
+      输入要增加的教师学院:<input type="text" name="college" />
+      输入要增加的教师职务:<input type="text" name="class" />
+      <input type="submit" value="增加" />
+    </form>
     <!- 页脚 ->
 
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
