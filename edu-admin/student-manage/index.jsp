@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
       type="image/png"
       href="https://static.koalarong.com/img/favicon.svg"
     />
-    <title>在线教育平台-教师</title>
+    <title>在线教育平台-学生</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -52,13 +52,13 @@ pageEncoding="UTF-8"%>
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="admin-manage/index.jsp">教师管理</a>
+            <a class="nav-link" href="admin-manage/index.jsp">学生管理</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="student-manage/index.jsp">教师管理</a>
+            <a class="nav-link" href="student-manage/index.jsp">学生管理</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="teacher-manage/index.jsp">教师管理</a>
+            <a class="nav-link" href="teacher-manage/index.jsp">学生管理</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="registrar-manage/index.jsp"
@@ -130,13 +130,13 @@ pageEncoding="UTF-8"%>
                           </button>
                           <div class="dropdown-menu">
                             <a class="dropdown-item" href="login-student.html"
-                              >教师</a
+                              >学生</a
                             >
                             <a class="dropdown-item" href="login-teacher.html"
-                              >教师</a
+                              >学生</a
                             >
                             <a class="dropdown-item" href="login-admin.html"
-                              >教师</a
+                              >学生</a
                             >
                           </div>
                         </div>
@@ -183,17 +183,17 @@ pageEncoding="UTF-8"%>
     <!- 导航栏 ->
 
     <form action="studentview.jsp" method="POST">
-      输入要查询的教师ID:<input type="text" name="id" />
+      输入要查询的学生ID:<input type="text" name="id" />
       <input type="submit" value="查询" />
     </form>
 
     <form action="studentmod.jsp" method="POST">
-      输入要修改的教师ID:<input type="text" name="id" />
+      输入要修改的学生ID:<input type="text" name="id" />
       <input type="submit" value="修改" />
     </form>
 
     <form action="studentdel.jsp" method="POST">
-      输入要删除的教师ID:<input type="text" name="id" />
+      输入要删除的学生ID:<input type="text" name="id" />
       <input type="submit" value="删除" />
     </form>
 
@@ -202,12 +202,13 @@ pageEncoding="UTF-8"%>
     </footer>
 
     <form action="studentadd.jsp" method="POST">
-      输入要增加的教师ID:<input type="text" name="id" />
-      输入要增加的教师密码:<input type="password" name="password" />
-      输入要增加的教师姓名:<input type="text" name="name" />
-      输入要增加的教师性别:<input type="text" name="sex" />
-      输入要增加的教师学院:<input type="text" name="college" />
-      输入要增加的教师职务:<input type="text" name="class" />
+      输入要增加的学生ID:<input type="text" name="id" />
+      输入要增加的学生密码:<input type="password" name="password" />
+      输入要增加的学生姓名:<input type="text" name="name" />
+      输入要增加的学生性别:<input type="text" name="sex" />
+      输入要增加的学生学院:<input type="text" name="college" />
+      输入要增加的学生班级:<input type="text" name="class" />
+      输入要增加的学生班级:<input type="text" name="year" />
       <input type="submit" value="增加" />
     </form>
     <!- 页脚 ->

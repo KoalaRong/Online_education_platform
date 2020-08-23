@@ -13,7 +13,7 @@
 <body>
 	<%
 		session.removeAttribute("userid");
-		session.removeAttribute("adminname");
+		session.removeAttribute("name");
 		response.sendRedirect("index.jsp");
 	%>
 	

@@ -31,6 +31,7 @@
 					session.setAttribute("userid",userid);
 					session.setAttribute("name",name);
 					response.sendRedirect("edu-"+identity+"/index.jsp");
+					return;
 				}else{
 					out.print("密码输入错误！！！<br>"+"重新<a href=\"login.jsp\">登录</a>");
 				}
