@@ -24,7 +24,6 @@ String sclass = new String((request.getParameter("class")).getBytes("ISO-8859-1"
 <sql:update dataSource="${snapshot}" var="result">
 INSERT INTO student (id,password,name,sex,college,class,year) VALUES (<%= request.getParameter("id")%>, <%= request.getParameter("password")%>,'<%=name%>', '<%=sex%>', '<%=college%>', '<%=sclass%>', <%= request.getParameter("year")%>);
 </sql:update>
-<h1>使用 POST 方法读取数据</h1>
 <sql:query dataSource="${snapshot}" var="result">
 SELECT * from student;
 </sql:query>

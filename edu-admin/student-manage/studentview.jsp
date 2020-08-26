@@ -39,8 +39,7 @@ SELECT * from student WHERE id = <%= request.getParameter("id")%>;
    <td><c:out value="${row.year}"/></td>
 </tr>
 </c:forEach>
-
-
 </table>
+
 </body>
 </html>

@@ -16,7 +16,7 @@
      url="jdbc:mariadb://localhost:3306/edu?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8"
      user="edu"  password="qwer1234!@#$"/>
 
-     <sql:query dataSource="${snapshot}" var="result">
+<sql:query dataSource="${snapshot}" var="result">
 SELECT * from notice WHERE id = '<%= request.getParameter("id")%>';
 </sql:query>
 <h1>全部管理员</h1>

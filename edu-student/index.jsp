@@ -27,6 +27,12 @@
 
   <body>
 
+  <%
+  if (session.getAttribute("userid")==null) {
+    response.sendRedirect("../loginerror.jsp");
+  }
+  %>
+  
   <sql:setDataSource var="snapshot" driver="org.mariadb.jdbc.Driver"
      url="jdbc:mariadb://localhost:3306/edu?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8"
      user="edu"  password="qwer1234!@#$"/>
@@ -174,7 +180,7 @@
                 <c:forEach var="row" items="${result.rows}">
                 <tr>
                    <td>*</td>
-                   <td><a href="#"><c:out value="${row.tittle}"/></a></td>
+                   <td><a href="./notice.jsp?noticeid=<c:out value="${row.id}"/>"><c:out value="${row.tittle}"/></a></td>
                    <td>[<c:out value="${row.date}"/>]</td>
                 </tr>
                 </c:forEach>
@@ -212,7 +218,7 @@
                         />
                         <div class="card-body text-center">
                             <p class="text-left"><c:out value="${row.classname}"/></p>
-                          <a href="#" class="btn btn-outline-primary btn-sm"
+                          <a href="./course.jsp?classid=<c:out value="${row.classid}"/>" class="btn btn-outline-primary btn-sm"
                             >进入课程</a
                           >
                           <button

@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.io.*,java.util.*" %>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -15,10 +22,17 @@
       type="image/png"
       href="https://static.koalarong.com/img/favicon.svg"
     />
-    <title>在线教育平台</title>
+    <title>在线教育平台-课程建设</title>
   </head>
 
   <body>
+
+  <sql:setDataSource var="snapshot" driver="org.mariadb.jdbc.Driver"
+     url="jdbc:mariadb://localhost:3306/edu?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8"
+     user="edu"  password="qwer1234!@#$"/>
+     <%
+      String classid = request.getParameter("classid");   //获取url中的参数值
+     %>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">
         <img
@@ -80,97 +94,14 @@
           <span style="color: azure;">&nbsp;|&nbsp;</span>
         </div>
         <div class="my-2 my-sm-0">
+          <a href="../logout.jsp">
           <button
             type="button"
             class="btn btn-outline-info"
-            data-toggle="modal"
-            data-target="#exampleModalCenter"
           >
-            登录
+            注销
           </button>
-
-          <div
-            class="modal fade"
-            id="exampleModalCenter"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                <form action="">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalCenterTitle">
-                      用户登录
-                    </h5>
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="form-group">
-                      <label>账号</label>
-                      <div class="input-group form-group mb-3">
-                        <div class="input-group-append">
-                          <button
-                            class="btn btn-outline-secondary dropdown-toggle"
-                            type="button"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                          >
-                            选择身份
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item" href="login-student.html"
-                              >学生</a
-                            >
-                            <a class="dropdown-item" href="login-teacher.html"
-                              >教师</a
-                            >
-                            <a class="dropdown-item" href="login-admin.html"
-                              >管理员</a
-                            >
-                          </div>
-                        </div>
-                        <input
-                          type="text"
-                          class="form-control"
-                          aria-label="Text input with dropdown button"
-                        />
-                      </div>
-                      <label>密码</label>
-                      <div class="input-group mb-3">
-                        <input
-                          type="password"
-                          class="form-control"
-                          aria-describedby="basic-addon1"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="btn btn-secondary"
-                      data-dismiss="modal"
-                    >
-                      关闭
-                    </button>
-                    <button type="submit" class="btn btn-primary">
-                      登录
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+          </a>
         </div>
       </div>
     </nav>
@@ -184,50 +115,59 @@
         <div class="col-3">
           <div class="border p-3 mb-2 rounded-lg">
             <h2>教师信息</h2>
+            <sql:query dataSource="${snapshot}" var="result">
+              SELECT * from teacher WHERE id = <%= session.getAttribute("userid")%>;
+            </sql:query>
+            <c:forEach var="row" items="${result.rows}">
             <table class="table table-sm">
               <tbody>
                 <tr>
                   <th scope="row">教师姓名</th>
-                  <td>ABC院</td>
+                  <td><c:out value="${row.name}"/></td>
                 </tr>
                 <tr>
                   <th scope="row">所属学院</th>
-                  <td>ABC院</td>
+                  <td><c:out value="${row.college}"/></td>
                 </tr>
                 <tr>
-                  <th scope="row">教师简介</th>
-                  <td>A1234556</td>
+                  <th scope="row">职务</th>
+                  <td><c:out value="${row.job}"/></td>
                 </tr>
               </tbody>
             </table>
+          </c:forEach>
           </div>
           <div class="border p-3 mb-5 rounded-lg">
             <h2>课程信息</h2>
+            <sql:query dataSource="${snapshot}" var="classresult">
+              SELECT * from class WHERE classid IN (SELECT classid FROM class WHERE teacherid = <%= session.getAttribute("userid")%>);
+            </sql:query>
+            <c:forEach var="row" items="${classresult.rows}">
             <table class="table table-sm">
               <tbody>
                 <tr>
                   <th scope="row">开课学院</th>
-                  <td>ABC院</td>
+                  <td><c:out value="${row.college}"/></td>
                 </tr>
                 <tr>
                   <th scope="row">课程编号</th>
-                  <td>A1234556</td>
+                  <td><c:out value="${row.classid}"/></td>
                 </tr>
                 <tr>
                   <th scope="row">任课教师</th>
-                  <td>Jim KK</td>
+                  <td><c:out value="${row.teachername}"/></td>
                 </tr>
                 <tr>
                   <th scope="row">课程类型</th>
-                  <td>专业选修</td>
+                  <td><c:out value="${row.type}"/></td>
                 </tr>
                 <tr>
                   <th scope="row">学分</th>
-                  <td>5</td>
+                  <td><c:out value="${row.credit}"/></td>
                 </tr>
                 <tr>
                   <th scope="row">考查方式</th>
-                  <td>考核</td>
+                  <td><c:out value="${row.exam}"/></td>
                 </tr>
               </tbody>
             </table>
@@ -239,6 +179,7 @@
             <h2>课程介绍</h2>
           </div>
         </div>
+        </c:forEach>
         <div class="col-3">
           <div class="border p-3 mb-2 rounded-lg">
             <h2>课程通知</h2>

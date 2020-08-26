@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>添加管理员信息</title>
+<title>发布通知</title>
 </head>
 <body>
 <sql:setDataSource var="snapshot" driver="org.mariadb.jdbc.Driver"
