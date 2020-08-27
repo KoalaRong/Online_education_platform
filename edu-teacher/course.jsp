@@ -198,8 +198,20 @@
           <div>
             <p><c:out value="${row.introduction}"/></p>
           </div>
-        </div>
+           <p><c:out value="${row.introduction}"/></p>
+              <a class="btn btn-primary" data-toggle="collapse" href="#collapsein" role="button" aria-expanded="false" aria-controls="collapseExample">
+                修改课程介绍
+              </a>
+              <div class="collapse" id="collapsein">
+                <div class="card card-body">
+                  <form action="inmod.jsp?classid=<%=classid%>" method="POST">
+                输入新介绍:<input type="text" name="introduction" />
+                  <input type="submit" value="增加" />
+                  </form>
+                </div>
+              </div>
         </c:forEach>
+        </div>
         <div class="col-3">
           <div class="border p-3 mb-2 rounded-lg">
             <h2>课程通知</h2>
@@ -383,15 +395,69 @@
                   <c:out value="${row.content}"/>
                 </div>
                 <sql:query dataSource="${snapshot}" var="knowledgeresult">
-                  SELECT * from knowledge WHERE unitid = <c:out value="${unitid}"/>;
+                  SELECT * from knowledge WHERE unitid = <c:out value="${unitid}"/> AND masterid = 0;
                 </sql:query>
                 
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                  <div>
+                  <div style="margin-top:1rem;margin-bottom:1rem;">
+                    <p>
                     <c:forEach var="row" items="${knowledgeresult.rows}">
-                    <c:out value="${row.tittle}"/>
+                <c:set var="masterid1" scope="session" value="${row.id}"/>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse<c:out value="${row.id}"/>" aria-expanded="false" aria-controls="collapseExample">
+                  <c:out value="${row.tittle}"/>
+                </button>
+              </p>
+              <div class="collapse" id="collapse<c:out value="${row.id}"/>">
+                <div class="card card-body">
+                  <c:out value="${row.content}"/>
+
+                  <div style="margin-top:1rem;">
+                    <p>
+                    <sql:query dataSource="${snapshot}" var="knowledgeresult1">
+                      SELECT * from knowledge WHERE masterid = <c:out value="${masterid1}"/>;
+                    </sql:query>
+                    <c:forEach var="row1" items="${knowledgeresult1.rows}">
+                    <c:set var="masterid2" scope="session" value="${row1.id}"/>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse<c:out value="${row1.id}"/>" aria-expanded="false" aria-controls="collapseExample">
+                      <c:out value="${row1.tittle}"/>
+                    </button>
+                  </p>
+                  </c:forEach>
+                  <c:forEach var="row1" items="${knowledgeresult1.rows}">
+                  <div class="collapse" id="collapse<c:out value="${row1.id}"/>">
+                      <div class="card card-body">
+                        <c:out value="${row1.content}"/>
+
+                        <div style="margin-top:1rem;">
+                          <p>
+                          <sql:query dataSource="${snapshot}" var="knowledgeresult2">
+                          SELECT * from knowledge WHERE masterid = <c:out value="${masterid2}"/>;
+                          </sql:query>
+                          <c:forEach var="row2" items="${knowledgeresult2.rows}">
+                          <c:set var="masterid1" scope="session" value="${row.id}"/>
+                          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse<c:out value="${row2.id}"/>" aria-expanded="false" aria-controls="collapseExample">
+                            <c:out value="${row2.tittle}"/>
+                          </button>
+                          </p>
+                          </c:forEach>
+                          <c:forEach var="row2" items="${knowledgeresult2.rows}">
+                          <div class="collapse" id="collapse<c:out value="${row2.id}"/>">
+                            <div class="card card-body">
+                              <c:out value="${row2.content}"/>
+                            </div>
+                          </div>
+                        </div>
+                        </c:forEach>
+                      </div>
+
+
+                  </div>
+                  </div>
                     </c:forEach>
                   </div>
+                </div>
+              </div>
+              </c:forEach>
                   
                   <br>
                   <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -401,25 +467,23 @@
                     <div class="card card-body">
                     <form action="knowledgeadd.jsp?classid=<%=classid%>&unitid=<c:out value="${unitid}"/>" method="POST">
                     输入要增加的知识点标题:<input type="text" name="tittle" />
-                    <div class="form-group">
+                      <div class="form-group">
                       <label for="exampleFormControlSelect1">上级知识点</label>
                         <select class="form-control" name="masterid">
-                        <option selected value="">无</option>
+                        <option selected value="0">无</option>
                         <c:forEach var="row" items="${knowledgeresult.rows}">
                         <option value="<c:out value="${row.id}"/>"><c:out value="${row.tittle}"/></option>
                         </c:forEach>
                         </select>
                       </div>
-                    输入要增加的知识点内容:<textarea class="form-control" name="content" rows="3"></textarea>
-                    <input type="submit" value="增加" />
-                  </form>
-                    </div>
+                      输入要增加的知识点内容:<textarea class="form-control" name="content" rows="3"></textarea>
+                      <input type="submit" value="增加" />
+                    </form>
                   </div>
+                  </div>
+                  </div>
+                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                 </div>
-                
-
-
-                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
               </div>
             </div>
 
@@ -429,13 +493,14 @@
                 输入要增加的单元标题:<br><input type="text" name="tittle" /><br>
                 输入要增加的单元内容:<br><textarea class="form-control" name="content" rows="3"></textarea>
                 <br><input type="submit" value="增加" />
-          </form>
+              </form>
             </div>
 
-          </div>
         </div>
       </div>
     </div>
+  </div>
+  </div>
   </div>
 
   <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">

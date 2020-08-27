@@ -38,7 +38,7 @@
      <th>内容</th>
    </tr>
    <tr>
-    <td><c:out value="${row.content}"/></td>
+    <td><c:out value="${row.content}" escapeXml="false" /></td>
    </tr>
    </table>
    <form action="commit.jsp?id=<%= request.getParameter("id")%>" method="POST">

@@ -108,6 +108,14 @@
     <form action="courseadd.jsp" method="POST">
       输入要增加的课程ID:<input type="text" name="id" />
       输入要增加的课程名:<input type="text" name="name" />
+      输入要增加的课程所属学院:<input type="text" name="college" />
+      输入要增加的课程教师id:<input type="text" name="teacherid" />
+      输入要增加的课程教师名:<input type="text" name="teachername" />
+      输入要增加的课程介绍:<input type="text" name="introduction" />
+      输入要增加的课程上课时间:<input type="text" name="time" />
+      输入要增加的课程上课地点:<input type="text" name="place" />
+      输入要增加的课程考核方式:<input type="text" name="exam" />
+      输入要增加的课程类型:<input type="text" name="type" />
       输入要增加的课程学分:<input type="text" name="credit" />
       <input type="submit" value="增加" />
     </form>

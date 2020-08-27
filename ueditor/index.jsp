@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.util.*" %>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
@@ -11,6 +11,9 @@
 <head>
     <title>提交作业</title>
     <meta http-equiv="Content-Type" content="text/html"/>
+    <script type="text/javascript"  src="ueditor.config.js"></script>
+    <script type="text/javascript"  src="ueditor.all.min.js"> </script>
+    <script type="text/javascript"  src="lang/zh-cn/zh-cn.js"></script>
 </head>
 <body>
 <sql:setDataSource var="snapshot" driver="org.mariadb.jdbc.Driver"
@@ -48,8 +51,7 @@
             </table>
 
 <div id="btns">
-    <button onclick="createEditor()">开始编辑</button>
-    <button onclick="getContent()">获得内容</button>
+    <button onclick="getstring()">保存</button>
 </div>
 
 <div>
@@ -59,29 +61,21 @@
 <form action="../edu-student/uploadhw.jsp?id=<%=id%>" method="post">
 
 <textarea id="wordtype" name="wordtype" style="display: none"></textarea>
-
-<button id="submit" οnclick="getstring();">提交</button>
+<button id="submit" onclick="getstring()">提交</button>
 
 </form>
 
 <script type="text/javascript">
-
 function getstring(){
-
     document.getElementById('wordtype').innerHTML=UE.getEditor('editor').getContent();
-
 }
-
 </script>
 
 
 <script type="text/javascript">
-
     //实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
     var ue = UE.getEditor('editor');
-
-
     function isFocus(e){
         alert(UE.getEditor('editor').isFocus());
         UE.dom.domUtils.preventDefault(e)
@@ -125,12 +119,10 @@ function getstring(){
         UE.getEditor('editor').setDisabled('fullscreen');
         disableBtn("enable");
     }
-
     function setEnabled() {
         UE.getEditor('editor').setEnabled();
         enableBtn();
     }
-
     function getText() {
         //当你点击按钮时编辑区域已经失去了焦点，如果直接用getText将不会得到内容，所以要在选回来，然后取得内容
         var range = UE.getEditor('editor').selection.getRange();
@@ -138,7 +130,6 @@ function getstring(){
         var txt = UE.getEditor('editor').selection.getText();
         alert(txt)
     }
-
     function getContentTxt() {
         var arr = [];
         arr.push("使用editor.getContentTxt()方法可以获得编辑器的纯文本内容");
@@ -178,18 +169,14 @@ function getstring(){
             UE.dom.domUtils.removeAttributes(btn, ["disabled"]);
         }
     }
-
     function getLocalData () {
         alert(UE.getEditor('editor').execCommand( "getlocaldata" ));
     }
-
     function clearLocalData () {
         UE.getEditor('editor').execCommand( "clearlocaldata" );
         alert("已清空草稿箱")
     }
 </script>
-<script type="text/javascript"  src="ueditor.config.js"></script>
-    <script type="text/javascript"  src="ueditor.all.min.js"> </script>
-    <script type="text/javascript"  src="lang/zh-cn/zh-cn.js"></script>
+
 </body>
 </html>

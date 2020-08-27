@@ -19,7 +19,7 @@
 <sql:query dataSource="${snapshot}" var="result">
 SELECT * from course WHERE id = '<%= request.getParameter("id")%>';
 </sql:query>
-<h1>全部管理员</h1>
+<h1>管理员信息</h1>
 <table border="1" width="100%">
 <c:forEach var="row" items="${result.rows}">
 <form action="mod.jsp" method="get">

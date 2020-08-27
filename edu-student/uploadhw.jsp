@@ -24,8 +24,6 @@ String time = new String((formattertime.format(nowtime)));
 <sql:update dataSource="${snapshot}" var="result">
 INSERT INTO shomework (studentid,studentname,homeworkid,content,time) VALUES (<%=session.getAttribute("userid")%>,'<%=session.getAttribute("name")%>',<%= request.getParameter("id")%>, '<%=wordtype%>','<%=time%>');
 </sql:update>
-
-<% System.out.println(request.getParameter("wordtype")); %>
 成功
 </body>
 </html>

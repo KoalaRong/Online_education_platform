@@ -215,185 +215,178 @@
             </table>
           </div>
         </div>
-        <!- 左侧边栏 ->
       </div>
     </div>
   <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-  <div class="container" style="margin-top:1rem;">
-    <div class="row">
-    <div class="col-3">
-      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-      <sql:query dataSource="${snapshot}" var="result">
-        SELECT * from unit WHERE classid = '<%= classid%>' ORDER BY id;
-      </sql:query>
-      <c:forEach var="row" items="${result.rows}">
-        <a class="nav-link" id="v-unit-<c:out value="${row.id}"/>-tab" data-toggle="pill" href="#v-unit-<c:out value="${row.id}"/>" role="tab" aria-controls="v-unit-<c:out value="${row.id}"/>" aria-selected="true"><c:out value="${row.tittle}"/></a>
-      </c:forEach>
-      </div>
-    </div>
-    <div class="col-9">
-    <div class="tab-content" id="v-unit-tabContent">
-    <c:forEach var="row" items="${result.rows}">
-    <c:set var="unitid" scope="session" value="${row.id}"/>
-      <div class="tab-pane fade" id="v-unit-<c:out value="${row.id}"/>" role="tabpanel" aria-labelledby="v-unit-<c:out value="${row.id}"/>-tab">
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">单元内容</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">知识点</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">作业</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="pills-tabContent">
-          <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-            <c:out value="${row.content}"/>
-          </div>
-          <sql:query dataSource="${snapshot}" var="knowledgeresult">
-            SELECT * from knowledge WHERE unitid = <c:out value="${unitid}"/> AND masterid is null;
+    <div class="container" style="margin-top:1rem;">
+      <div class="row">
+        <div class="col-3">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <sql:query dataSource="${snapshot}" var="result">
+            SELECT * from unit WHERE classid = '<%= classid%>' ORDER BY id;
           </sql:query>
-          
-        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-            <div style="margin-top:1rem;margin-bottom:1rem;">
-              <p>
-              <c:forEach var="row" items="${knowledgeresult.rows}">
-                <c:set var="masterid1" scope="session" value="${row.id}"/>
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse<c:out value="${row.id}"/>" aria-expanded="false" aria-controls="collapseExample">
-                  <c:out value="${row.tittle}"/>
-                </button>
-              </p>
-              <div class="collapse" id="collapse<c:out value="${row.id}"/>">
-                <div class="card card-body">
+          <c:forEach var="row" items="${result.rows}">
+            <a class="nav-link" id="v-unit-<c:out value="${row.id}"/>-tab" data-toggle="pill" href="#v-unit-<c:out value="${row.id}"/>" role="tab" aria-controls="v-unit-<c:out value="${row.id}"/>" aria-selected="true"><c:out value="${row.tittle}"/></a>
+          </c:forEach>
+          </div>
+        </div>
+        <div class="col-9">
+          <div class="tab-content" id="v-unit-tabContent">
+            <c:forEach var="row" items="${result.rows}">
+            <c:set var="unitid" scope="session" value="${row.id}"/>
+            <div class="tab-pane fade" id="v-unit-<c:out value="${row.id}"/>" role="tabpanel" aria-labelledby="v-unit-<c:out value="${row.id}"/>-tab">
+              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">单元内容</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">知识点</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">作业</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                   <c:out value="${row.content}"/>
-
-                  <div style="margin-top:1rem;">
+                </div>
+                <sql:query dataSource="${snapshot}" var="knowledgeresult">
+                  SELECT * from knowledge WHERE unitid = <c:out value="${unitid}"/> AND masterid = 0;
+                </sql:query>
+                
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                  <div style="margin-top:1rem;margin-bottom:1rem;">
                     <p>
-                      <sql:query dataSource="${snapshot}" var="knowledgeresult1">
-                        SELECT * from knowledge WHERE masterid = <c:out value="${masterid1}"/>;
-                      </sql:query>
-                      <c:forEach var="row1" items="${knowledgeresult1.rows}">
-                      <c:set var="masterid2" scope="session" value="${row1.id}"/>
-                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse<c:out value="${row1.id}"/>" aria-expanded="false" aria-controls="collapseExample">
-                        <c:out value="${row1.tittle}"/>
+                    <c:forEach var="row" items="${knowledgeresult.rows}">
+                      <c:set var="masterid1" scope="session" value="${row.id}"/>
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse<c:out value="${row.id}"/>" aria-expanded="false" aria-controls="collapseExample">
+                        <c:out value="${row.tittle}"/>
                       </button>
                     </p>
-                    <div class="collapse" id="collapse<c:out value="${row1.id}"/>">
+                    <div class="collapse" id="collapse<c:out value="${row.id}"/>">
                       <div class="card card-body">
-                        <c:out value="${row1.content}"/>
+                        <c:out value="${row.content}"/>
 
                         <div style="margin-top:1rem;">
                           <p>
-                          <sql:query dataSource="${snapshot}" var="knowledgeresult2">
-                          SELECT * from knowledge WHERE masterid = <c:out value="${masterid2}"/>;
-                          </sql:query>
-                          <c:forEach var="row2" items="${knowledgeresult2.rows}">
-                          <c:set var="masterid1" scope="session" value="${row.id}"/>
-                          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse<c:out value="${row2.id}"/>" aria-expanded="false" aria-controls="collapseExample">
-                            <c:out value="${row2.tittle}"/>
-                          </button>
+                            <sql:query dataSource="${snapshot}" var="knowledgeresult1">
+                              SELECT * from knowledge WHERE masterid = <c:out value="${masterid1}"/>;
+                            </sql:query>
+                            <c:forEach var="row1" items="${knowledgeresult1.rows}">
+                            <c:set var="masterid2" scope="session" value="${row1.id}"/>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse<c:out value="${row1.id}"/>" aria-expanded="false" aria-controls="collapseExample">
+                              <c:out value="${row1.tittle}"/>
+                            </button>
                           </p>
-                          <div class="collapse" id="collapse<c:out value="${row2.id}"/>">
+                          <div class="collapse" id="collapse<c:out value="${row1.id}"/>">
                             <div class="card card-body">
-                              <c:out value="${row2.content}"/>
+                              <c:out value="${row1.content}"/>
+                              <div style="margin-top:1rem;">
+                                <p>
+                                <sql:query dataSource="${snapshot}" var="knowledgeresult2">
+                                SELECT * from knowledge WHERE masterid = <c:out value="${masterid2}"/>;
+                                </sql:query>
+                                <c:forEach var="row2" items="${knowledgeresult2.rows}">
+                                <c:set var="masterid1" scope="session" value="${row.id}"/>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapse<c:out value="${row2.id}"/>" aria-expanded="false" aria-controls="collapseExample">
+                                  <c:out value="${row2.tittle}"/>
+                                </button>
+                                </p>
+                                <div class="collapse" id="collapse<c:out value="${row2.id}"/>">
+                                  <div class="card card-body">
+                                    <c:out value="${row2.content}"/>
+                                  </div>
+                                </div>
+                              </div>
+                              </c:forEach>
+                            </div>
                             </div>
                           </div>
-                        </div>
                           </c:forEach>
-                      </div>
-
-
+                        </div>
                       </div>
                     </div>
                     </c:forEach>
                   </div>
-
                 </div>
               </div>
-              </c:forEach>
+            </div>
+            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
             </div>
           </div>
-          
-
-
-          <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...</div>
         </div>
+        </c:forEach>
       </div>
-
-    </c:forEach>
-
     </div>
-    </div>
-  </div>
-</div>
-  </div>
-  </div>
   </div>
 
   <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-  <div class="container" style="margin-top:1rem;">
-  <div class="row">
-    <div class="col-2">
-      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-      <a class="nav-link active" id="v-pills-homework-tab" data-toggle="pill" href="#v-pills-homework" role="tab" aria-controls="v-pills-homework" aria-selected="true">未完成作业</a>
-      <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">已完成作业</a>
+    <div class="container" style="margin-top:1rem;">
+      <div class="row">
+        <div class="col-2">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-homework-tab" data-toggle="pill" href="#v-pills-homework" role="tab" aria-controls="v-pills-homework" aria-selected="true">未完成作业</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">已完成作业</a>
+          </div>
+        </div>
+        <div class="col-10">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-homework" role="tabpanel" aria-labelledby="v-pills-homework-tab">
+              <sql:query dataSource="${snapshot}" var="result">
+                SELECT * FROM homework WHERE classid = "<%=classid%>" AND id not in (SELECT homeworkid FROM shomework WHERE studentid = <%= session.getAttribute("userid")%>);
+              </sql:query>
+              <h1>未完成作业</h1>
+              <table border="1" width="100%">
+              <tr>
+                <th>标题</th>
+                <th>发布者</th>
+                <th>发布时间</th>
+                <th>操作</th>
+              </tr>
+              <c:forEach var="row" items="${result.rows}">
+              <tr>
+                <td><c:out value="${row.tittle}"/></td>
+                <td><c:out value="${row.author}"/></td>
+                <td><c:out value="${row.time}"/></td>
+                <td><a href="../ueditor/index.jsp?id=<c:out value="${row.id}"/>">提交</a></td>
+              </tr>
+              </c:forEach>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+              <sql:query dataSource="${snapshot}" var="result">
+                SELECT * FROM shomework WHERE studentid = <%= session.getAttribute("userid")%>  AND  homeworkid in (SELECT id FROM homework WHERE classid = "<%=classid%>");
+              </sql:query>
+              <h1>已完成作业</h1>
+              <table border="1" width="100%">
+                <tr>
+                  <th>标题</th>
+                  <th>发布者</th>
+                  <th>提交时间</th>
+                  <th>分数</th>
+                  <th>操作</th>
+                </tr>
+                <c:forEach var="row" items="${result.rows}">
+                <c:set var="hwid" value="${row.homeworkid}"/>
+                <tr>
+                  <sql:query dataSource="${snapshot}" var="hwresult">
+                    SELECT * FROM homework WHERE id = <c:out value="${hwid}"/>;
+                  </sql:query>
+                  <c:forEach var="row1" items="${hwresult.rows}">
+                    <td><c:out value="${row1.tittle}"/></td>
+                    <td><c:out value="${row1.author}"/></td>
+                  </c:forEach>
+                    <td><c:out value="${row.time}"/></td>
+                  <td><c:out value="${row.grade}"/></td>
+                  <td><a href="homeview.jsp?id=<c:out value="${hwid}"/>">查看</a></td>
+                </tr>
+                </c:forEach>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  <div class="col-10">
-    <div class="tab-content" id="v-pills-tabContent">
-      <div class="tab-pane fade show active" id="v-pills-homework" role="tabpanel" aria-labelledby="v-pills-homework-tab">
-        <sql:query dataSource="${snapshot}" var="result">
-          SELECT * FROM homework WHERE classid = "<%=classid%>" AND NOT EXISTS (SELECT homeworkid FROM shomework WHERE studentid = <%= session.getAttribute("userid")%>);
-        </sql:query>
-        <h1>未完成作业</h1>
-        <table border="1" width="100%">
-        <tr>
-          <th>标题</th>
-          <th>发布者</th>
-          <th>发布时间</th>
-          <th>操作</th>
-        </tr>
-        <c:forEach var="row" items="${result.rows}">
-        <tr>
-          <td><c:out value="${row.tittle}"/></td>
-          <td><c:out value="${row.author}"/></td>
-          <td><c:out value="${row.time}"/></td>
-          <td><a href="../ueditor/index.jsp?id=<c:out value="${row.id}"/>">提交</a></td>
-        </tr>
-        </c:forEach>
-        </table>
-      </div>
-
-
-    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-    <sql:query dataSource="${snapshot}" var="result">
-          SELECT * FROM homework WHERE classid = "<%=classid%>" AND  EXISTS (SELECT homeworkid FROM shomework WHERE studentid = <%= session.getAttribute("userid")%>);
-        </sql:query>
-    <h1>已完成作业</h1>
-        <table border="1" width="100%">
-        <tr>
-          <th>标题</th>
-          <th>发布者</th>
-          <th>发布时间</th>
-          <th>分数</th>
-          <th>操作</th>
-        </tr>
-        <c:forEach var="row" items="${result.rows}">
-        <tr>
-          <td><c:out value="${row.tittle}"/></td>
-          <td><c:out value="${row.author}"/></td>
-          <td><c:out value="${row.time}"/></td>
-          <td><c:out value="${row.grade}"/></td>
-          <td><a href="homeview.jsp?id=<c:out value="${row.id}"/>">查看</a></td>
-        </tr>
-      </c:forEach>
-      </table>
-    </div>
-    </div>
-  </div>
-</div>
-</div>
   </div>
 </div>
       

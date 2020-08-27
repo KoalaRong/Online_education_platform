@@ -17,7 +17,7 @@
      user="edu"  password="qwer1234!@#$"/>
 
 <sql:query dataSource="${snapshot}" var="result">
-    SELECT * from shomework WHERE id = <%= request.getParameter("id")%>;
+    SELECT * from shomework WHERE homeworkid = <%= request.getParameter("id")%>;
 </sql:query>
    <h1>学生作业</h1>
    <table border="1" width="100%">
@@ -38,7 +38,7 @@
      <th>内容</th>
    </tr>
    <tr>
-    <td><c:out value="${row.content}"/></td>
+    <td><c:out value="${row.content}" escapeXml="false" /></td>
    </tr>
    </table>
    <table border="1" width="100%">

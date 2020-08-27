@@ -9,15 +9,17 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>菜鸟教程(runoob.com)</title>
+<title>修改课程介绍</title>
 </head>
 <body>
+<%
+String introduction = new String((request.getParameter("introduction")).getBytes("ISO-8859-1"),"UTF-8");
+%>
 <sql:setDataSource var="snapshot" driver="org.mariadb.jdbc.Driver"
-     url="jdbc:mariadb://localhost:3306/edu?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8"
+    url="jdbc:mariadb://localhost:3306/edu?useSSL=false&serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8"
      user="edu"  password="qwer1234!@#$"/>
-
 <sql:update dataSource="${snapshot}" var="count">
-    UPDATE course SET id='<%= request.getParameter("id")%>',name ="<%= request.getParameter("name")%>",credit='<%= request.getParameter("credit")%>' WHERE id = '<%= request.getParameter("id")%>';
+    UPDATE class SET introduction='<%= introduction%>' WHERE classid = '<%= request.getParameter("classid")%>';
 </sql:update>
 成功
 </body>

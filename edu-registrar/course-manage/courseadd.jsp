@@ -17,27 +17,17 @@
      user="edu"  password="qwer1234!@#$"/>
 <%
 String name = new String((request.getParameter("name")).getBytes("ISO-8859-1"),"UTF-8");
+String college = new String((request.getParameter("college")).getBytes("ISO-8859-1"),"UTF-8");
+String teachername = new String((request.getParameter("teachername")).getBytes("ISO-8859-1"),"UTF-8");
+String introduction = new String((request.getParameter("introduction")).getBytes("ISO-8859-1"),"UTF-8");
+String time = new String((request.getParameter("time")).getBytes("ISO-8859-1"),"UTF-8");
+String place = new String((request.getParameter("place")).getBytes("ISO-8859-1"),"UTF-8");
+String exam = new String((request.getParameter("exam")).getBytes("ISO-8859-1"),"UTF-8");
+String type = new String((request.getParameter("type")).getBytes("ISO-8859-1"),"UTF-8");
 %>
 <sql:update dataSource="${snapshot}" var="result">
-INSERT INTO course (id,name,credit) VALUES ('<%= request.getParameter("id")%>', '<%=name%>', <%= request.getParameter("credit")%>);
+INSERT INTO class (classid,classname,college,teacherid,teachername,introduction,time,place,exam,type,credit) VALUES ('<%= request.getParameter("id")%>', '<%=name%>','<%=college%>',<%= request.getParameter("teacherid")%>,'<%=teachername%>','<%=introduction%>','<%=time%>', '<%=place%>','<%=exam%>','<%=type%>',<%= request.getParameter("credit")%>);
 </sql:update>
-<sql:query dataSource="${snapshot}" var="result">
-SELECT * from course WHERE id = '<%= request.getParameter("id")%>';
-</sql:query>
-<h1>全部管理员</h1>
-<table border="1" width="100%">
-<tr>
-   <th>ID</th>
-   <th>课程名</th>
-   <th>学分</th>
-</tr>
-<c:forEach var="row" items="${result.rows}">
-<tr>
-   <td><c:out value="${row.id}"/></td>
-   <td><c:out value="${row.name}"/></td>
-   <td><c:out value="${row.credit}"/></td>
-</tr>
-</c:forEach>
-</table>
+成功
 </body>
 </html>
